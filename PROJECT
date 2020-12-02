@@ -1,0 +1,10 @@
+domain: builder.io
+repo: github.com/wdongyu/builder-manager
+resources:
+- group: apps
+  kind: build
+  version: v1alpha1
+- group: apps
+  kind: Repo
+  version: v1alpha1
+version: "2"

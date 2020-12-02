@@ -1,0 +1,15 @@
+apiVersion: apps.builder.io/v1alpha1
+kind: Repo
+metadata:
+  name: sample
+spec:
+  token: "vKf1PZM3OLH9NL330ZkVvndqaRebcS1z"
+  owner: "demo"
+  projectName: "demo"
+  serviceName: "git-test"
+  enable: true
+  setting:
+    configPath: ".drone.yml"
+    trusted: false
+    protected: false
+    visibility: "public"

@@ -1,0 +1,14 @@
+apiVersion: apps.builder.io/v1alpha1
+kind: Build
+metadata:
+  name: sample
+spec:
+  token: "vKf1PZM3OLH9NL330ZkVvndqaRebcS1z"
+  owner: "demo"
+  projectName: "demo"
+  serviceName: "git-test"
+  branch: "master"
+  commit: "eea70204"
+  # buildNo: 1
+  # stepNo: 1
+
