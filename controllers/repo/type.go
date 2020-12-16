@@ -10,7 +10,8 @@ const (
 
 	DisableRepoFinalizer = "disable-repo"
 
-	DroneServer = "http://114.212.82.229:30170"
+	//DroneServer = "http://114.212.82.229:30170"
+	DroneServer = "http://192.168.80.133:30170"
 
 	DockerUsername = "username"
 	DockerPassword = "password"

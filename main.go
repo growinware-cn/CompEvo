@@ -77,6 +77,7 @@ func main() {
 
 	if err = (&build.BuildReconciler{
 		Client:     mgr.GetClient(),
+		ApiReader:  mgr.GetAPIReader(),
 		Log:        ctrl.Log.WithName("controllers").WithName("build"),
 		Scheme:     mgr.GetScheme(),
 		Recorder:   mgr.GetEventRecorderFor("build-controller"),

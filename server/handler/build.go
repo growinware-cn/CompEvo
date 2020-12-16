@@ -9,13 +9,13 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 func (handler *APIHandler) ListBuilds(w http.ResponseWriter, r *http.Request) {
+	vars := r.URL.Query()
 	buildList := &v1alpha1.BuildList{}
 
-	err := handler.client.List(context.TODO(), buildList, &client.ListOptions{})
+	err := handler.client.List(context.TODO(), buildList, GetListOptions(vars))
 
 	if err != nil {
 		log.Warningf("failed to list builds: %v", err)

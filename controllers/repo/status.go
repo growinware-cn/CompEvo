@@ -17,7 +17,11 @@ func (r *RepoReconciler) updateStatus(repo *appsv1alpha1.Repo, response *appsv1a
 
 	repo.Status.Response = *response
 
-	return r.syncStatus(repo)
+	if repo.ObjectMeta.DeletionTimestamp == nil {
+		return r.syncStatus(repo)
+	} else {
+		return nil
+	}
 }
 
 func (r *RepoReconciler) syncStatus(repo *appsv1alpha1.Repo) error {

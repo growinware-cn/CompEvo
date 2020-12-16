@@ -20,6 +20,17 @@ func NewJobSyncer(build *appsv1alpha1.Build, c client.Client, scheme *runtime.Sc
 	})
 }
 
+func NewJobSyncerWithoutCache(build *appsv1alpha1.Build, reader client.Reader, c client.Client, scheme *runtime.Scheme) syncer.Interface {
+	job := newJob(build)
+	return syncer.NewObjectSyncerWithoutCache("job", build, job, reader, c, scheme, func(existing runtime.Object) error {
+		out := existing.(*batchv1.Job)
+		if !reflect.DeepEqual(out.Spec, job.Spec) {
+			out.Spec = job.Spec
+		}
+		return nil
+	})
+}
+
 func NewDisableJobSyncer(build *appsv1alpha1.Build, c client.Client, scheme *runtime.Scheme) syncer.Interface {
 	job := newDisabledJob(build)
 	return syncer.NewObjectSyncer("disableJob", build, job, c, scheme, func(existing runtime.Object) error {

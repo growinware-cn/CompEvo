@@ -9,13 +9,13 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 func (handler *APIHandler) ListRepos(w http.ResponseWriter, r *http.Request) {
+	vars := r.URL.Query()
 	repoList := &v1alpha1.RepoList{}
 
-	err := handler.client.List(context.TODO(), repoList, &client.ListOptions{})
+	err := handler.client.List(context.TODO(), repoList, GetListOptions(vars))
 
 	if err != nil {
 		log.Warningf("failed to list builds: %v", err)

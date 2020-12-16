@@ -18,6 +18,7 @@ type ObjectSyncer struct {
 	Owner          runtime.Object
 	Obj            runtime.Object
 	Name           string
+	Reader         client.Reader
 	Client         client.Client
 	Scheme         *runtime.Scheme
 	SyncFn         MutateFn
@@ -40,6 +41,19 @@ func NewObjectSyncer(name string, owner, obj runtime.Object, c client.Client, sc
 		Obj:    obj,
 		Name:   name,
 		SyncFn: syncFn,
+		Reader: nil,
+		Client: c,
+		Scheme: scheme,
+	}
+}
+
+func NewObjectSyncerWithoutCache(name string, owner, obj runtime.Object, reader client.Reader, c client.Client, scheme *runtime.Scheme, syncFn MutateFn) Interface {
+	return &ObjectSyncer{
+		Owner:  owner,
+		Obj:    obj,
+		Name:   name,
+		SyncFn: syncFn,
+		Reader: reader,
 		Client: c,
 		Scheme: scheme,
 	}
@@ -54,7 +68,7 @@ func (s *ObjectSyncer) Sync(ctx context.Context) (SyncResult, error) {
 		return result, err
 	}
 
-	result.Operation, err = CreateOrUpdate(ctx, s.Client, s.Obj, s.mutateFn())
+	result.Operation, err = CreateOrUpdate(ctx, s.Reader, s.Client, s.Obj, s.mutateFn())
 
 	if err != nil {
 		result.SetEventData(eventWarning, basicEventReason(s.Name, err),
@@ -74,7 +88,7 @@ func (s *ObjectSyncer) Sync(ctx context.Context) (SyncResult, error) {
 // obj can be updated with the content returned by the Server.
 //
 // It returns the executed operation and an error.
-func CreateOrUpdate(ctx context.Context, c client.Client, obj runtime.Object, f MutateFn) (OperationResult, error) {
+func CreateOrUpdate(ctx context.Context, reader client.Reader, c client.Client, obj runtime.Object, f MutateFn) (OperationResult, error) {
 	// op is the operation we are going to attempt
 	op := OperationResultNone
 
@@ -89,7 +103,12 @@ func CreateOrUpdate(ctx context.Context, c client.Client, obj runtime.Object, f 
 		Name:      metaObj.GetName(),
 		Namespace: metaObj.GetNamespace(),
 	}
-	err := c.Get(ctx, key, obj)
+	var err error
+	if reader != nil {
+		err = reader.Get(ctx, key, obj)
+	} else {
+		err = c.Get(ctx, key, obj)
+	}
 
 	// reconcile the existing object
 	existing := obj.DeepCopyObject()

@@ -8,11 +8,13 @@ import (
 )
 
 func NameforJob(build *appsv1alpha1.Build) string {
-	return fmt.Sprintf("%s-%d", build.Spec.ServiceName, build.Status.CreateTime.Unix())
+	return build.Name
+	//return fmt.Sprintf("%s-%d", build.Spec.ServiceName, build.Status.CreateTime.Unix())
 }
 
 func NameforDisableJob(build *appsv1alpha1.Build) string {
-	return fmt.Sprintf("%s-%s-%d", strings.ToLower(StopBuildFinalizer), build.Spec.ServiceName, build.Status.CreateTime.Unix())
+	return fmt.Sprintf("%s-%s", strings.ToLower(StopBuildFinalizer), build.Name)
+	//return fmt.Sprintf("%s-%s-%d", strings.ToLower(StopBuildFinalizer), build.Spec.ServiceName, build.Status.CreateTime.Unix())
 }
 
 func UIDForManagedService(build *appsv1alpha1.Build) string {

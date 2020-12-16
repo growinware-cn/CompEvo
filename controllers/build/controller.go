@@ -37,6 +37,7 @@ import (
 // buildReconciler reconciles a build object
 type BuildReconciler struct {
 	client.Client
+	ApiReader  client.Reader
 	Log        logr.Logger
 	Scheme     *runtime.Scheme
 	Recorder   record.EventRecorder
@@ -60,7 +61,7 @@ func (r *BuildReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	log.Printf("Reconciling build %s/%s\n", req.Namespace, req.Name)
 
 	build := &appsv1alpha1.Build{}
-	err := r.Client.Get(context.TODO(), req.NamespacedName, build)
+	err := r.ApiReader.Get(context.TODO(), req.NamespacedName, build)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return ctrl.Result{}, nil
@@ -80,7 +81,7 @@ func (r *BuildReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	}
 
 	syncers := []syncer.Interface{
-		NewJobSyncer(build, r.Client, r.Scheme),
+		NewJobSyncerWithoutCache(build, r.ApiReader, r.Client, r.Scheme),
 	}
 
 	//if build.ObjectMeta.DeletionTimestamp.IsZero() {
