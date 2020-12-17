@@ -35,6 +35,7 @@ import (
 // RepoReconciler reconciles a Repo object
 type RepoReconciler struct {
 	client.Client
+	ApiReader  client.Reader
 	Log        logr.Logger
 	Scheme     *runtime.Scheme
 	Recorder   record.EventRecorder
@@ -58,7 +59,7 @@ func (r *RepoReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	log.Printf("Reconciling repo %s/%s\n", req.Namespace, req.Name)
 
 	repo := &appsv1alpha1.Repo{}
-	err := r.Client.Get(context.TODO(), req.NamespacedName, repo)
+	err := r.ApiReader.Get(context.TODO(), req.NamespacedName, repo)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return ctrl.Result{}, nil

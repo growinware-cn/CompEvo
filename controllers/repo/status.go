@@ -26,7 +26,7 @@ func (r *RepoReconciler) updateStatus(repo *appsv1alpha1.Repo, response *appsv1a
 
 func (r *RepoReconciler) syncStatus(repo *appsv1alpha1.Repo) error {
 	old := &appsv1alpha1.Repo{}
-	err := r.Client.Get(context.TODO(), types.NamespacedName{
+	err := r.ApiReader.Get(context.TODO(), types.NamespacedName{
 		Name:      repo.Name,
 		Namespace: repo.Namespace,
 	}, old)

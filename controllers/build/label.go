@@ -25,10 +25,9 @@ func UIDForManagedService(build *appsv1alpha1.Build) string {
 func LabelsForJob(build *appsv1alpha1.Build) labels.Set {
 	l := labels.Set{}
 
-	l[LabelOwnerKey] = build.Kind
+	l[LabelOwnerKey] = build.Name
 	l[LabelProjectKey] = build.Spec.ProjectName
 	l[LabelServiceKey] = build.Spec.ServiceName
-	l[LabelCreateTime] = fmt.Sprintf("%d", build.Status.CreateTime.Unix())
 	l[StopBuildFinalizer] = "false"
 
 	return l

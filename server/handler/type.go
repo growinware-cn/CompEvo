@@ -7,6 +7,8 @@ const (
 	VERSION          = "version"
 	NAMESPACE        = "namespace"
 	DefaultNamespace = "default"
+
+	BuildNumber 	 = "number"
 )
 
 var (
@@ -19,4 +21,10 @@ type BuildList struct {
 
 type RepoList struct {
 	Repos []v1alpha1.Repo `json:"repos"`
+}
+
+type PatchInterfaceValue struct {
+	Op    string      `json:"op"`
+	Path  string      `json:"path"`
+	Value interface{} `json:"value"`
 }

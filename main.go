@@ -88,6 +88,7 @@ func main() {
 	}
 	if err = (&repo.RepoReconciler{
 		Client:     mgr.GetClient(),
+		ApiReader:  mgr.GetAPIReader(),
 		Log:        ctrl.Log.WithName("controllers").WithName("Repo"),
 		Scheme:     mgr.GetScheme(),
 		Recorder:   mgr.GetEventRecorderFor("repo-controller"),

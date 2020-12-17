@@ -8,7 +8,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func PodsViaLabels(c client.Client, namespace string, labels labels.Set) ([]v1.Pod, error) {
+func PodsViaLabels(c client.Reader, namespace string, labels labels.Set) ([]v1.Pod, error) {
 	pods := &v1.PodList{}
 	if err := c.List(context.TODO(), pods, client.InNamespace(namespace),
 		client.MatchingLabelsSelector{Selector: labels.AsSelector()}); err != nil {
@@ -18,7 +18,7 @@ func PodsViaLabels(c client.Client, namespace string, labels labels.Set) ([]v1.P
 	return pods.Items, nil
 }
 
-func JobsViaLabels(c client.Client, namespace string, labels labels.Set) ([]batchv1.Job, error) {
+func JobsViaLabels(c client.Reader, namespace string, labels labels.Set) ([]batchv1.Job, error) {
 	jobs := &batchv1.JobList{}
 	if err := c.List(context.TODO(), jobs, client.InNamespace(namespace),
 		client.MatchingLabelsSelector{Selector: labels.AsSelector()}); err != nil {

@@ -8,6 +8,7 @@ import (
 	"github.com/wdongyu/builder-manager/api/v1alpha1"
 	"io"
 	"io/ioutil"
+	"k8s.io/apimachinery/pkg/fields"
 	"net/http"
 )
 
@@ -15,8 +16,14 @@ func (handler *APIHandler) ListBuilds(w http.ResponseWriter, r *http.Request) {
 	vars := r.URL.Query()
 	buildList := &v1alpha1.BuildList{}
 
-	err := handler.client.List(context.TODO(), buildList, GetListOptions(vars))
+	listOptions := GetListOptions(vars)
+	buildNo, ok := vars[BuildNumber]
+	if ok && len(buildNo) != 0 {
+		listOptions.FieldSelector = fields.SelectorFromSet(
+			fields.Set{BuildNumber: buildNo[0]})
+	}
 
+	err := handler.client.List(context.TODO(), buildList, listOptions)
 	if err != nil {
 		log.Warningf("failed to list builds: %v", err)
 		responseJSON(Message{err.Error()}, w, http.StatusInternalServerError)
@@ -58,12 +65,19 @@ func (handler *APIHandler) StopBuild(w http.ResponseWriter, r *http.Request) {
 
 	build := new(v1alpha1.Build)
 	build.Name = name
-	build.Namespace = handler.resourcesNamespace
+
+	params := r.URL.Query()
+	param, ok := params[NAMESPACE]
+	if !ok && len(param) == 0 {
+		build.Namespace = handler.resourcesNamespace
+	} else {
+		build.Namespace = param[0]
+	}
 
 	err := handler.client.Delete(context.TODO(), build)
 	if err != nil {
 		responseJSON(Message{err.Error()}, w, http.StatusInternalServerError)
 	} else {
-		responseJSON("", w, http.StatusOK)
+		responseJSON("done", w, http.StatusOK)
 	}
 }

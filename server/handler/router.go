@@ -55,6 +55,12 @@ func NewRouter(handler *APIHandler) http.Handler {
 			"/apis/repo/{repo}",
 			handler.DisableRepo,
 		},
+		{
+			"UpdateRepo",
+			"PATCH",
+			"/apis/repo/{repo}",
+			handler.UpdateRepo,
+		},
 	}
 
 	// The public route is always accessible

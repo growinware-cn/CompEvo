@@ -12,7 +12,7 @@ import (
 )
 
 func (r *BuildReconciler) updateStatus(build *appsv1alpha1.Build) error {
-	jobs, err := internal.JobsViaLabels(r.Client, build.Namespace, LabelsForJob(build))
+	jobs, err := internal.JobsViaLabels(r.ApiReader, build.Namespace, LabelsForJob(build))
 	if err != nil {
 		log.Errorf("Fail to list jobs with labels : %v", LabelsForJob(build))
 		return err
@@ -30,7 +30,7 @@ func (r *BuildReconciler) updateStatus(build *appsv1alpha1.Build) error {
 		log.Infof("Job %s/%s is completed", jobs[0].Namespace, jobs[0].Name)
 		build.Status.RequestPhase = appsv1alpha1.PhaseSuccess
 
-		pods, err := internal.PodsViaLabels(r.Client, build.Namespace, LabelsForPod(build))
+		pods, err := internal.PodsViaLabels(r.ApiReader, build.Namespace, LabelsForPod(build))
 		if err != nil {
 			log.Errorf("Fail to get pod for labels %v : %v", LabelsForPod(build), err)
 			return err
@@ -88,7 +88,7 @@ func (r *BuildReconciler) updateStatus(build *appsv1alpha1.Build) error {
 
 func (r *BuildReconciler) syncStatus(build *appsv1alpha1.Build) error {
 	old := &appsv1alpha1.Build{}
-	err := r.Client.Get(context.TODO(), types.NamespacedName{
+	err := r.ApiReader.Get(context.TODO(), types.NamespacedName{
 		Name:      build.Name,
 		Namespace: build.Namespace,
 	}, old)
