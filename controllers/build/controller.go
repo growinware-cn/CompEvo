@@ -21,7 +21,6 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/wdongyu/builder-manager/syncer"
 	"k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/record"
 
@@ -73,11 +72,6 @@ func (r *BuildReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 
 	if build.ObjectMeta.DeletionTimestamp != nil {
 		return ctrl.Result{}, nil
-	}
-
-	if build.Status.CreateTime == nil {
-		now := metav1.Now()
-		build.Status.CreateTime = &now
 	}
 
 	syncers := []syncer.Interface{

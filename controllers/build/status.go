@@ -6,12 +6,18 @@ import (
 	log "github.com/sirupsen/logrus"
 	appsv1alpha1 "github.com/wdongyu/builder-manager/api/v1alpha1"
 	"github.com/wdongyu/builder-manager/internal"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"reflect"
 	"strings"
 )
 
 func (r *BuildReconciler) updateStatus(build *appsv1alpha1.Build) error {
+	if build.Status.CreateTime == nil {
+		now := metav1.Now()
+		build.Status.CreateTime = &now
+	}
+
 	jobs, err := internal.JobsViaLabels(r.ApiReader, build.Namespace, LabelsForJob(build))
 	if err != nil {
 		log.Errorf("Fail to list jobs with labels : %v", LabelsForJob(build))

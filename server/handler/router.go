@@ -22,8 +22,14 @@ func NewRouter(handler *APIHandler) http.Handler {
 		{
 			"ListBuilds",
 			"GET",
-			"/apis/build",
+			"/apis/builds",
 			handler.ListBuilds,
+		},
+		{
+			"GetBuild",
+			"GET",
+			"/apis/build",
+			handler.GetBuild,
 		},
 		{
 			"CreateBuild",
@@ -42,6 +48,12 @@ func NewRouter(handler *APIHandler) http.Handler {
 			"GET",
 			"/apis/repo",
 			handler.ListRepos,
+		},
+		{
+			"GetRepo",
+			"GET",
+			"/apis/repo",
+			handler.GetRepo,
 		},
 		{
 			"EnableRepo",

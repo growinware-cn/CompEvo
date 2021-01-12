@@ -27,6 +27,39 @@ func (handler *APIHandler) ListRepos(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (handler *APIHandler) GetRepo(w http.ResponseWriter, r *http.Request) {
+	vars := r.URL.Query()
+	var namespace, name string
+	namespaceParam, ok := vars[NAMESPACE]
+	if !ok || len(namespaceParam) == 0 {
+		log.Warningf("Not specify namespace, use default namespace")
+		namespace = DefaultNamespace
+	} else {
+		namespace = namespaceParam[0]
+	}
+
+	nameParam, ok := vars[NAME]
+	if !ok || len(nameParam) == 0 {
+		log.Errorf("Param name is not specify.")
+		responseJSON(Message{"Param name is not specify."}, w, http.StatusInternalServerError)
+		return
+	} else {
+		name = nameParam[0]
+	}
+
+	repo := new(v1alpha1.Repo)
+	err := handler.client.Get(context.TODO(), types.NamespacedName{
+		Namespace: namespace,
+		Name:      name,
+	}, repo)
+	if err != nil {
+		log.Errorf("failed to get repo %s/%s : %v", namespace, name, err)
+		responseJSON(Message{err.Error()}, w, http.StatusInternalServerError)
+	} else {
+		responseJSON(repo, w, http.StatusOK)
+	}
+}
+
 func (handler *APIHandler) EnableRepo(w http.ResponseWriter, r *http.Request) {
 	repo := new(v1alpha1.Repo)
 
@@ -142,6 +175,6 @@ func (handler *APIHandler) UpdateRepo(w http.ResponseWriter, r *http.Request) {
 		log.Errorf("Fail to patch repo %s/%s : %v", repo.Namespace, repo.Name, err)
 		responseJSON(Message{err.Error()}, w, http.StatusInternalServerError)
 	} else {
-		responseJSON(repo, w, http.StatusOK)
+		responseJSON("done", w, http.StatusOK)
 	}
 }

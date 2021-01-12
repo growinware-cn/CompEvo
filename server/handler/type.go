@@ -6,9 +6,10 @@ const (
 	APP              = "app"
 	VERSION          = "version"
 	NAMESPACE        = "namespace"
+	NAME             = "name"
 	DefaultNamespace = "default"
 
-	BuildNumber 	 = "number"
+	BuildNumber = "number"
 )
 
 var (
