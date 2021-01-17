@@ -59,6 +59,8 @@ const (
 	PhaseSuccess = "Succeeded"
 
 	PhaseRunning = "Running"
+
+	PhaseFailed = "Failed"
 )
 
 type BuildResponse struct {

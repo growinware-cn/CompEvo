@@ -34,7 +34,6 @@ func (r *BuildReconciler) updateStatus(build *appsv1alpha1.Build) error {
 		build.Status.RequestPhase = appsv1alpha1.PhaseRunning
 	} else {
 		log.Infof("Job %s/%s is completed", jobs[0].Namespace, jobs[0].Name)
-		build.Status.RequestPhase = appsv1alpha1.PhaseSuccess
 
 		pods, err := internal.PodsViaLabels(r.ApiReader, build.Namespace, LabelsForPod(build))
 		if err != nil {
@@ -49,8 +48,13 @@ func (r *BuildReconciler) updateStatus(build *appsv1alpha1.Build) error {
 		}
 		left := strings.Index(podLogs, "{")
 		right := strings.LastIndex(podLogs, "}")
-		if err = json.Unmarshal([]byte(podLogs[left:right+1]), &build.Status.Response); err != nil {
+		if left == -1 || right == -1 {
+			build.Status.RequestPhase = appsv1alpha1.PhaseFailed
+		} else if err = json.Unmarshal([]byte(podLogs[left:right+1]), &build.Status.Response); err != nil {
 			log.Errorf("Fail to decode pod log to build response : %v", err)
+			build.Status.RequestPhase = appsv1alpha1.PhaseFailed
+		} else {
+			build.Status.RequestPhase = appsv1alpha1.PhaseSuccess
 		}
 	}
 
