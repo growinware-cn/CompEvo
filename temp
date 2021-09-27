@@ -1,0 +1,297 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Node
+  metadata:
+    annotations:
+      kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+      node.alpha.kubernetes.io/ttl: "0"
+      projectcalico.org/IPv4Address: 172.18.0.1/16
+      projectcalico.org/IPv4IPIPTunnelAddr: 192.168.137.192
+      volumes.kubernetes.io/controller-managed-attach-detach: "true"
+    creationTimestamp: "2021-09-25T10:57:58Z"
+    labels:
+      beta.kubernetes.io/arch: amd64
+      beta.kubernetes.io/os: linux
+      kubernetes.io/arch: amd64
+      kubernetes.io/hostname: ics311
+      kubernetes.io/os: linux
+      node-role.kubernetes.io/master: ""
+    name: ics311
+    resourceVersion: "7171"
+    selfLink: /api/v1/nodes/ics311
+    uid: 3e21c91b-9ca7-4b2b-844c-e048504335f2
+  spec:
+    taints:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+  status:
+    addresses:
+    - address: 192.168.1.197
+      type: InternalIP
+    - address: ics311
+      type: Hostname
+    allocatable:
+      cpu: "24"
+      ephemeral-storage: "218466864791"
+      hugepages-1Gi: "0"
+      hugepages-2Mi: "0"
+      memory: 16226584Ki
+      pods: "110"
+    capacity:
+      cpu: "24"
+      ephemeral-storage: 237051720Ki
+      hugepages-1Gi: "0"
+      hugepages-2Mi: "0"
+      memory: 16328984Ki
+      pods: "110"
+    conditions:
+    - lastHeartbeatTime: "2021-09-25T11:44:57Z"
+      lastTransitionTime: "2021-09-25T11:44:57Z"
+      message: Calico is running on this node
+      reason: CalicoIsUp
+      status: "False"
+      type: NetworkUnavailable
+    - lastHeartbeatTime: "2021-09-25T11:45:25Z"
+      lastTransitionTime: "2021-09-25T10:57:58Z"
+      message: kubelet has sufficient memory available
+      reason: KubeletHasSufficientMemory
+      status: "False"
+      type: MemoryPressure
+    - lastHeartbeatTime: "2021-09-25T11:45:25Z"
+      lastTransitionTime: "2021-09-25T10:57:58Z"
+      message: kubelet has no disk pressure
+      reason: KubeletHasNoDiskPressure
+      status: "False"
+      type: DiskPressure
+    - lastHeartbeatTime: "2021-09-25T11:45:25Z"
+      lastTransitionTime: "2021-09-25T10:57:58Z"
+      message: kubelet has sufficient PID available
+      reason: KubeletHasSufficientPID
+      status: "False"
+      type: PIDPressure
+    - lastHeartbeatTime: "2021-09-25T11:45:25Z"
+      lastTransitionTime: "2021-09-25T11:04:02Z"
+      message: kubelet is posting ready status. AppArmor enabled
+      reason: KubeletReady
+      status: "True"
+      type: Ready
+    daemonEndpoints:
+      kubeletEndpoint:
+        Port: 10250
+    images:
+    - names:
+      - <none>@<none>
+      - <none>:<none>
+      sizeBytes: 1689211715
+    - names:
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/proxyv2@sha256:9d08e19b374abfda440d54ec73d34f7f202e4245df47358f79bff467c8051d76
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/proxyv2:1.1.7
+      sizeBytes: 1658179723
+    - names:
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/proxyv2@sha256:2e3a10af968d0ad4c6f214645e88440b38d8cc4f5e907c3571b95ab0e3300730
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/proxyv2:typhoon-debugv1.0.3
+      sizeBytes: 1658151355
+    - names:
+      - <none>@<none>
+      - <none>:<none>
+      sizeBytes: 1488698099
+    - names:
+      - solomonfield/cuda@sha256:73095e9d7754eee368bd9f879c2cc81fc215c7e6e8f5d68b9cff44dfb49ee5d7
+      - solomonfield/cuda:10.2-runtime-ubuntu18.04
+      sizeBytes: 1365411497
+    - names:
+      - solomonfield/cuda@sha256:628579854ad67de9fbf77f6b2e05a9c17a7e7a079c34f99fb9d76e4f707371fb
+      sizeBytes: 1365137577
+    - names:
+      - solomonfield/cuda@sha256:da15370b92f3c9104eb9ed1a8376c4a87ce790d48cba4d4d8a93709cf8a4d1eb
+      sizeBytes: 1364897193
+    - names:
+      - solomonfield/cuda@sha256:849a819df26a4828ef1119d6852454925c835ac840dd6ee1fda31294c84e3587
+      sizeBytes: 1362428169
+    - names:
+      - solomonfield/cuda@sha256:306171a14bad7bae691fec6c8ee1925af16ecc7ad064081f2d2b9e379478e651
+      sizeBytes: 1359958377
+    - names:
+      - 192.168.1.197:80/typhoon/pm-server@sha256:afa87c30750daae14344b1268a31b25016651e18ee99344e0ead57b743616b22
+      - 192.168.1.197:80/typhoon/pm-server:1.0
+      sizeBytes: 949651831
+    - names:
+      - 192.168.1.197:80/library/node@sha256:874d39231651fb4c98b3234515f2f60b151e609fd0e08d25b72cc799a0cc8b35
+      - node@sha256:8eb45f4677c813ad08cef8522254640aa6a1800e75a9c213a0a651f6f3564189
+      - 192.168.1.197:80/library/node:14
+      - node:14
+      sizeBytes: 942697171
+    - names:
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/update-demo@sha256:fca5f3b911ea4b30f02bcae9f95238976077c85f11b7feb33a1f984082b3346b
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/update-demo:typhoon-debugv2.1
+      sizeBytes: 901995245
+    - names:
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/builder-manager@sha256:708ab73c51f124cabf19dd9548be05e92d9be76b25cdbda41702dcb7e28fd816
+      sizeBytes: 889525002
+    - names:
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/builder-manager@sha256:567921dd2cf1cd494b5516f302a13306fcfff78de3617d3df3db8018789d9bce
+      sizeBytes: 889520735
+    - names:
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/builder-manager@sha256:fa21888a3bfe2670f5365938c1caf0daee5332fbc1a247c14370f1508a0281d5
+      - 192.168.10.101:5000/wdongyu/builder-manager:1.3
+      - registry.cn-hangzhou.aliyuncs.com/wdongyu/builder-manager:1.3
+      sizeBytes: 882776540
+    - names:
+      - nvidia/cuda@sha256:6a7fb090e32038f800537c4158031e0773e8cbad3e2498de0b7dabdac623fe78
+      - nvidia/cuda:9.2-runtime-ubuntu16.04
+      sizeBytes: 855357361
+    - names:
+      - golang@sha256:1a7173b5b9a3af3e29a5837e0b2027e1c438fd1b83bbee8f221355087ad416d6
+      - golang:1.14
+      sizeBytes: 810617561
+    - names:
+      - golang@sha256:8ebb6d5a48deef738381b56b1d4cd33d99a5d608e0d03c5fe8dfa3f68d41a1f8
+      - golang:1.13
+      sizeBytes: 803416074
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-backend@sha256:04b3d113adc822e145cf8fd174c633cae3e9b3b5a3564027b05f2e6698ae2cec
+      - 192.168.1.197:80/typhoon/typhoon-backend:compv1
+      - 192.168.80.133:80/typhoon/typhoon-backend:compv1
+      sizeBytes: 438817880
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-microservices-windcontroller@sha256:ba76ead3db045519caed3917f39f7d7a95b3f6f6a5f6f342126e5ffa6137ee6f
+      - 192.168.1.197:80/typhoon/typhoon-microservices-windcontroller:compv1
+      sizeBytes: 381924261
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-microservices-raincontroller@sha256:88df3eff3ff1956da3597a70f7036e092102cd613b17777d770397490590e35d
+      - 192.168.1.197:80/typhoon/typhoon-microservices-raincontroller:compv1
+      sizeBytes: 378636948
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-microservices-typhoon@sha256:0ff28dc77c05bca4b317d5bd4fa31812636f82919a83587b15bd96950273995f
+      - 192.168.1.197:80/typhoon/typhoon-microservices-typhoon:compv1
+      sizeBytes: 290615092
+    - names:
+      - registry.aliyuncs.com/google_containers/etcd@sha256:4afb99b4690b418ffc2ceb67e1a17376457e441c1f09ab55447f0aaf992fa646
+      - registry.cn-hangzhou.aliyuncs.com/google_containers/etcd@sha256:4afb99b4690b418ffc2ceb67e1a17376457e441c1f09ab55447f0aaf992fa646
+      - registry.aliyuncs.com/google_containers/etcd:3.4.3-0
+      - registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.3-0
+      sizeBytes: 288426917
+    - names:
+      - calico/node@sha256:319813e29578c1eb9401a426ae6d8549f3b8963ae97ccff0d8aea57b8406ec8d
+      - calico/node:v3.11.3
+      sizeBytes: 260765251
+    - names:
+      - plugins/docker@sha256:63866456570c8666b86d9f341ea35c71cc2f7e34117eb744f9d8a75f7b4793c8
+      - plugins/docker:latest
+      sizeBytes: 240799599
+    - names:
+      - istio/proxyv2@sha256:9ba9de87d660767a2147f786040a8fe29ebb3b335742d3c95257ab82a33b8415
+      - istio/proxyv2:1.4.0
+      sizeBytes: 236743155
+    - names:
+      - calico/cni@sha256:29a4a6b90a2e840e763625306e81357405ebfc9ee7c69c3fbe6519f2c427e42f
+      - calico/cni:v3.11.3
+      sizeBytes: 222108695
+    - names:
+      - registry.cn-hangzhou.aliyuncs.com/tangcong/typhoon_monitor@sha256:e5add60639c8417a8046d4f85ce0ac1c19e3dbc29786ab51ea8aa46db95b6042
+      - registry.cn-hangzhou.aliyuncs.com/tangcong/typhoon_monitor:v1
+      sizeBytes: 221670543
+    - names:
+      - istio/kubectl@sha256:d62512cc4b10228512c86f63501b828b80c20e238452c429cfd62a9b9388cc54
+      - istio/kubectl:1.4.0
+      sizeBytes: 218715390
+    - names:
+      - istio/galley@sha256:67f9f5321e6fefdf97e5406a047579a0fd04b576ad1c997e95a9db4dd2fbc6bc
+      - istio/galley:1.4.0
+      sizeBytes: 212440743
+    - names:
+      - istio/pilot@sha256:149357dc33f488eff0cc1edfb3329e72ea49614d52095770df543cbb8d60bcdb
+      - istio/pilot:1.4.0
+      sizeBytes: 208430582
+    - names:
+      - grafana/grafana@sha256:bd55ea2bad17f5016431734b42fdfc202ebdc7d08b6c4ad35ebb03d06efdff69
+      - grafana/grafana:6.4.3
+      sizeBytes: 205977864
+    - names:
+      - istio/sidecar_injector@sha256:9f4aba5bb84a07e198b65bc7e4fc0067f876f66b51c7404816ae95e6b5ffa938
+      - istio/sidecar_injector:1.4.0
+      sizeBytes: 196252897
+    - names:
+      - drone/git@sha256:ac1d22858df4fe40412ae81c651fa2c5dfda36de8bbb5f5c1a896360d1d9f35b
+      - drone/git:latest
+      sizeBytes: 195998528
+    - names:
+      - istio/citadel@sha256:e168f97716efd0a16a65ad19bdf6be5858c31e0499023b3a3ef15e9f4fcd6ef5
+      - istio/citadel:1.4.0
+      sizeBytes: 187942039
+    - names:
+      - quay.io/kiali/kiali@sha256:ebd6317cf1d42ab8c74f3146fe581dc9ca7a73b8ff25017958bed70dd155c2f3
+      - quay.io/kiali/kiali:v1.9
+      sizeBytes: 185180703
+    - names:
+      - goharbor/harbor-db:v2.2.1
+      sizeBytes: 175011278
+    - names:
+      - registry.aliyuncs.com/google_containers/kube-apiserver@sha256:71344dfb6a804ff6b2c8bf5f72b1f7941ddee1fbff7369836339a79387aa071a
+      - registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver@sha256:71344dfb6a804ff6b2c8bf5f72b1f7941ddee1fbff7369836339a79387aa071a
+      - registry.aliyuncs.com/google_containers/kube-apiserver:v1.17.17
+      - registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver:v1.17.17
+      sizeBytes: 171006333
+    - names:
+      - goharbor/prepare:v2.2.1
+      sizeBytes: 164796291
+    - names:
+      - goharbor/chartmuseum-photon:v2.2.1
+      sizeBytes: 164660864
+    - names:
+      - goharbor/harbor-jobservice:v2.2.1
+      sizeBytes: 163178378
+    - names:
+      - registry.aliyuncs.com/google_containers/kube-controller-manager@sha256:9dbe964b3a0d8a4a70b2e16bddb8caf51d7a96d5bf43981ce988909a5f2bf4df
+      - registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager@sha256:9dbe964b3a0d8a4a70b2e16bddb8caf51d7a96d5bf43981ce988909a5f2bf4df
+      - registry.aliyuncs.com/google_containers/kube-controller-manager:v1.17.17
+      - registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager:v1.17.17
+      sizeBytes: 160917885
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:678247ab8b559e49473aae5941448594d9459852cab13a565bcc14e2ac84fbef
+      - 192.168.1.197:80/typhoon/typhoon-frontend:c94c3116
+      sizeBytes: 149116106
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:ead809114ae43b5b44e7cc9a9abade74c9043b2a6151a415c6d2ecfe1b5b867f
+      - 192.168.1.197:80/typhoon/typhoon-frontend:9d12eaa8
+      sizeBytes: 149116106
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:18be9bc5f38efa3a0b2f9e5d212b8281a85669fe2b2e73d8d86f9f6578c86957
+      - 192.168.1.197:80/typhoon/typhoon-frontend:7bbe848e
+      sizeBytes: 149116106
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:b10abb87af885100d24e3c441ff3337a11dc2f691f3006407c6457a00cc86dfa
+      - 192.168.1.197:80/typhoon/typhoon-frontend:af8eb3ad
+      sizeBytes: 149116106
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:a33550d39538d40d2c1eebbd98e1f3c3be556afeed47e83772f5adcde3dc9b91
+      - 192.168.1.197:80/typhoon/typhoon-frontend:41724614
+      sizeBytes: 149115998
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:49eba7f8079263475024f754c6ad68761e8a47f0144541b5b9b2c31aeb569b6f
+      - 192.168.1.197:80/typhoon/typhoon-frontend:b2fdba48
+      sizeBytes: 149115863
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:80b83dd58de6503d5abda9d6d96511fe85159c7dced9218e71c5e68a6304b67a
+      - 192.168.1.197:80/typhoon/typhoon-frontend:9b3ad547
+      sizeBytes: 149115863
+    - names:
+      - 192.168.1.197:80/typhoon/typhoon-frontend@sha256:7617983e86588a166293de5fc0ddee332601b932fce3da634312477cbb6c6a65
+      - 192.168.1.197:80/typhoon/typhoon-frontend:67a45695
+      sizeBytes: 149115747
+    nodeInfo:
+      architecture: amd64
+      bootID: 4f8b8bba-7c7f-4bd2-a76f-208a4209e6fa
+      containerRuntimeVersion: docker://19.3.15
+      kernelVersion: 4.15.0-153-generic
+      kubeProxyVersion: v1.17.17
+      kubeletVersion: v1.17.17
+      machineID: 9ee23ae00d8941a1acc34218612790fb
+      operatingSystem: linux
+      osImage: Ubuntu 18.04.5 LTS
+      systemUUID: 03000200-0400-0500-0006-000700080009
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

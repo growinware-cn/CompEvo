@@ -27,6 +27,9 @@ spec:
         - /usr/local/bin/manager
         args:
         - --enable-leader-election
+        env:
+        - name: DRONE_SERVER
+          value: http://192.168.1.197:30170
         image: controller:latest
         imagePullPolicy: Always
         name: manager

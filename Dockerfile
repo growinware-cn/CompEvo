@@ -3,7 +3,7 @@ FROM golang:1.13 as builder
 
 WORKDIR /workspace
 
-ENV GOPROXY=https://goproxy.io
+ENV GOPROXY=https://goproxy.cn
 
 # Copy the Go Modules manifests
 COPY go.mod go.mod
