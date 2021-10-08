@@ -1,9 +1,7 @@
-# typhoon
+# 构件级在线更新系统
 
 #### Description
 微服务系统的更新
-
-#### Software Architecture
 
 
 #### Installation
@@ -16,3 +14,5 @@
 #### Instructions
 详细命令参见`Makefile`
 
+#### 贡献单位
+南京大学
