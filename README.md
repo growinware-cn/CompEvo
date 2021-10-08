@@ -1,4 +1,4 @@
-# compevo，描述换为构件级在线更新系统
+# compevo：构件级在线更新系统
 
 #### Description
 微服务系统的更新
