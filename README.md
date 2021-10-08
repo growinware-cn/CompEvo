@@ -1,7 +1,7 @@
-# compevo：构件级在线更新系统
+# compevo
 
 #### Description
-微服务系统的更新
+构件级在线更新系统
 
 
 #### Installation
